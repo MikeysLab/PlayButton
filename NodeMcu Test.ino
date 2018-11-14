@@ -88,8 +88,8 @@ const char* host = "www.googleapis.com";
 const int httpsPort = 443;
 const char* fingerprint = "6F:B4:5F:41:2F:7D:9F:BA:67:40:03:08:61:76:A5:32:FF:A6:8C:DA";
 
-const char* ssid = "DigitalAwakenings";
-const char* password = "2264761246";
+const char* ssid = "<YourSSID>";
+const char* password = "<YourPassword>";
 
 int curSubs = 0;
 int curViews = 0;
