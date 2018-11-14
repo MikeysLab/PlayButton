@@ -88,8 +88,8 @@ const char* host = "www.googleapis.com";
 const int httpsPort = 443;
 const char* fingerprint = "6F:B4:5F:41:2F:7D:9F:BA:67:40:03:08:61:76:A5:32:FF:A6:8C:DA";
 
-const char* ssid = "DigitalAwakenings";
-const char* password = "2264761246";
+const char* ssid = "<YourSSID>";
+const char* password = "<yourPassword>";
 
 int curSubs = 0;
 int curViews = 0;
@@ -129,27 +129,15 @@ void showLogo()
 
 void SetupWiFi()
 {
-	Serial.println();
-	Serial.println();
-	Serial.print("Connecting to ");
-	Serial.println(ssid);
-
 	WiFi.mode(WIFI_STA);
 	WiFi.begin(ssid, password);
 
 	while (WiFi.status() != WL_CONNECTED) 
 	{
 		delay(500);
-		Serial.print(".");
 		colorWipe(strip.Color(255,0, 0), 1);
 	}
-
 	colorWipe(strip.Color(0, 255, 0), 1);
-
-	Serial.println("");
-	Serial.println("WiFi connected");
-	Serial.println("IP address: ");
-	Serial.println(WiFi.localIP());
 }
 
 
@@ -177,12 +165,7 @@ void getYouTubeStats()
 		return;
 	}
 
-	Serial.println("Connected to site!");
-	if (client.verify(fingerprint, host)) 
-	{
-		Serial.println("certificate matches");
-	}
-	else 
+	if (!client.verify(fingerprint, host)) 
 	{
 		Serial.println("certificate doesn't match");
 	}
@@ -196,16 +179,12 @@ void getYouTubeStats()
 		"Host: " + host + "\r\n" +
 		"User-Agent: PlayButtonV1\r\n" +
 		"Connection: close\r\n\r\n");
-
-	Serial.println("request sent");
-
-
+	
 	while (client.connected()) 
 	{
 		String line = client.readStringUntil('\n');
 		if (line == "\r") 
 		{
-			Serial.println("headers received");
 			break;
 		}
 	}
@@ -238,7 +217,6 @@ void whiteStrip()
 
 void updateDisplay()
 {
-	Serial.println("Updating Display!");
 	display.clearDisplay();
 	display.display();
 	printSubs();
@@ -273,10 +251,7 @@ int parseSubs(char* json)
 
 void newSubscriber(int subs)
 {
-	Serial.println("New Subscriber");
-
 	display.clearDisplay();
-
 	curSubs = subs;
 
 	for (int i = 0; i < 5; i++)
@@ -285,11 +260,8 @@ void newSubscriber(int subs)
 	}
 
 	whiteStrip();
-
 	display.clearDisplay();
-
 	PopSubs();
-
 	display.clearDisplay();
 }
 
