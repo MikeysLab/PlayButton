@@ -171,7 +171,7 @@ void getYouTubeStats()
 	}
 
 
-	String url = "/youtube/v3/channels?part=statistics&id=UCXFRZac2-ShBTHyndgOlCqA&key=AIzaSyBz-llocMyPomq-Xvypitf_FMfacKHAAPA";
+	String url = "/youtube/v3/channels?part=statistics&id=your channel id&key=your api key";
 	Serial.print("requesting URL: ");
 	Serial.println(url);
 
